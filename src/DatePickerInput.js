@@ -187,6 +187,16 @@ export default class DatePickerInput extends React.Component {
     }
   }
 
+  onBlur = () => {
+    if (!this.state.hasValue && this.state.dateString.length !== 0) {
+      this.setState({
+        date: undefined,
+        dateString: '',
+        hasValue: false
+      })
+    }
+  }
+
   onClear = () => {
     const _date = this.props.defaultValue;
     const date = typeof _date === 'string' ? this.parsePropDateString(_date) : moment(_date);
@@ -273,6 +283,7 @@ export default class DatePickerInput extends React.Component {
         onInputClick, onButtonClick, onInputClear,
         onInputChange: this.onChangeInput,
         onInputKeyUp: this.hideOnEnterKey,
+        onBlur: this.onBlur,
         placeholder,
         ...inputProps
       },
